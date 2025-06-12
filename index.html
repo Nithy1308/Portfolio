@@ -1521,10 +1521,10 @@ window.onclick = function(event) {
       if (response.ok) {
         form.innerHTML = "<p style='color: green;'>✅ Message sent successfully!</p>";
 
-        // Show the form again after 10 seconds
+        // Show the form again after 1 seconds
         setTimeout(() => {
           form.innerHTML = originalFormHTML;
-        }, 3000);
+        }, 1000);
       } else {
         form.innerHTML = "<p style='color: red;'>❌ Oops! There was a problem.</p>";
       }
