@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Portfolio</title>
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <style>
+    body, h1, h2, h3, h4, h5, h6 {
+      font-family: "Montserrat", sans-serif;
+      background-color: #EDC7B7;
+      color: #123C69;
+      margin: 0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #123C69;
+      padding: 14px 16px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      color: white;
+      font-weight: bold;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+
+    .navbar a:hover {
+      color: #EDC7B7;
+    }
+
+    /* Main container */
+    .container {
+      max-width: 1000px;
+      margin: 100px auto 40px;
+      padding: 0 20px;
+    }
+    
+    section {
+  padding-top: 80px; /* or height of navbar */
+  margin-top: -80px; /* negative margin to offset */
+}
+
+    h1 {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    /* Filter buttons */
+    .filter-btns {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-btns button {
+      background-color: #123C69;
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      margin: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .filter-btns button:hover,
+    .filter-btns button.active {
+      background-color: #EDC7B7;
+      color: #123C69;
+      font-weight: bold;
+    }
+
+    #portfolioGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  justify-content: center; /* optional: center the grid items */
+}
+
+.portfolio-item {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 300px; /* restrict maximum width */
+  margin: 0 auto;   /* center the item if fewer items */
+  box-sizing: border-box;
+}
+
+    .portfolio-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 16px rgb(0 0 0 / 0.15);
+    }
+
+    .portfolio-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+    .portfolio-info {
+      padding: 12px;
+    }
+
+    .portfolio-info h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #123C69;
+    }
+
+    .portfolio-info p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 100%;
+      padding: 20px;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+      border-radius: 6px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      color: #123C69;
+      cursor: pointer;
+      font-weight: bold;
+      transition: color 0.2s ease;
+    }
+
+    .modal-close:hover {
+      color: #EDC7B7;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Contact section */
+    #contact {
+      margin-bottom: 80px;
+    }
+
+    .contact-row {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .contact-form, .contact-info {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+      padding: 30px;
+      flex: 1 1 400px;
+      min-width: 300px;
+    }
+
+    /* Form inputs */
+    .contact-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #123C69;
+    }
+
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      margin-bottom: 16px;
+      border-radius: 4px;
+      resize: vertical;
+      font-size: 14px;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .contact-form textarea {
+      height: 120px;
+    }
+
+    .contact-form button {
+      background-color: #123C69;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background-color: #EDC7B7;
+      color: #123C69;
+    }
+
+    /* Contact info styling */
+    .contact-info h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #123C69;
+    }
+
+    .contact-info p {
+      margin: 8px 0;
+      font-size: 16px;
+      color: #555;
+    }
+
+    /* Responsive */
+    @media(max-width: 700px) {
+      .contact-row {
+        flex-direction: column;
+      }
+    }
+    /* Dropdown container */
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+/* Dropdown button */
+.dropbtn {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  user-select: none;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #123C69;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 4px;
+  z-index: 1500;
+  top: 42px; /* Adjust so it drops below navbar */
+}
+
+/* Dropdown links */
+.dropdown-content a {
+  color: white;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.dropdown-content a:hover {
+  background-color: #EDC7B7;
+  color: #123C69;
+}
+
+/* Show the dropdown when active */
+.show {
+  display: block;
+}
+
+.cutout-text {
+  font-size: 3vw;
+  font-weight: bold;
+  text-align: center;
+  color: transparent;
+  background: linear-gradient(
+    270deg, 
+    #ff69b4, 
+    #ffd700, 
+    #ff69b4, 
+    #ffd700
+  );
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 1px #2E3944;
+  margin: 0 auto;
+  width: fit-content;
+  animation: shimmer 5s ease infinite;
+}
+
+
+
+h1.name {
+      font-size: 3.5vw;
+      font-weight: 900;
+      margin: 0;
+      color: #865D36;
+    }
+
+    h1.typing-text {
+      font-size: 3.5vw;
+      font-weight: 900;
+      height: 50px;
+      color: #124E66;
+    }
+
+    p {
+      max-width: 600px;
+      margin: 20px auto 0;
+      color: #123C69;
+    }
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #123C69;
+  ...
+}
+
+.show {
+  display: block;
+}
+
+.social-icons {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.social-icons a {
+  color: white;
+  margin-left: 15px;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #EDC7B7;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+html {
+  scroll-padding-top: 100px; /* set based on your navbar height */
+  scroll-behavior: smooth;
+}
+
+/* Section title */
+.section-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #123C69;
+  font-weight: bold;
+}
+
+/* Education grid layout */
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Card design */
+.edu-card {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-left: 6px solid #123C69;
+  border-radius: 8px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.edu-card:hover {
+  background-color: #EDC7B7;
+  transform: scale(1.02);
+}
+
+.edu-card h3 {
+  margin-top: 0;
+  color: #123C69;
+  font-size: 18px;
+}
+
+.edu-card p {
+  margin: 6px 0;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* Section title (can reuse from education) */
+.section-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 28px;
+  color: #123C69;
+  margin-bottom: 24px;
+}
+
+/* Experience grid layout */
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Experience card style */
+.exp-card {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-left: 6px solid #123C69;
+  border-radius: 8px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.exp-card:hover {
+  background-color: #EDC7B7;
+  transform: scale(1.02);
+}
+
+.exp-card h3 {
+  margin-top: 0;
+  color: #123C69;
+  font-size: 18px;
+}
+
+.exp-card p {
+  margin: 6px 0;
+  color: #333;
+  line-height: 1.4;
+}
+
+.subsection-title {
+  margin-top: 40px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 22px;
+  color: #123C69;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.skill-card {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: scale(1.03);
+}
+
+.skill-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.skill-card h3 {
+  margin-bottom: 10px;
+  color: #123C69;
+}
+
+.skill-card ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  text-align: left;
+}
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+<!-- Navbar -->
+<div class="navbar" style="display: flex; justify-content: space-between; align-items: center;">
+  <div>
+    <a href="#Aboutme" onclick="scrollToSection('about me')">About me</a>
+    <a href="#Experience" onclick="scrollToSection('experience')">Experience</a>
+    <a href="#Education" onclick="scrollToSection('education')">Education</a>
+    <a href="#Skills" onclick="scrollToSection('skills')">Skills</a>
+    <a href="#Projects" onclick="scrollToSection('projects')">Projects</a>
+    <a href="#Achievements" onclick="scrollToSection('achievements')">Achievements</a>
+    <a href="#Personal Info" onclick="scrollToSection('personal info')">Personal Info</a>
+    <a href="#contact" onclick="scrollToSection('contact')">Contact</a>
+  </div>
+
+  <div>
+    <a href="https://www.linkedin.com/in/nithyasree-k-a199021a9" target="_blank" style="margin-right: 10px;">
+      <i class="fa fa-linkedin-square" style="font-size: 20px;"></i>
+    </a>
+    <a href="https://github.com/Nithy1308" target="_blank">
+      <i class="fa fa-github" style="font-size: 20px;"></i>
+    </a>
+  </div>
+</div>
+
+
+
+
+ <!-- Main Content -->
+<div class="container" id="Aboutme" 
+     style="display: flex; align-items: center; justify-content: flex-start; gap: 90px; max-width: 900px; margin: auto; padding: 70px;">
+
+  <!-- Left side: Text content -->
+  <div style="flex: none; width: 600px; text-align: left;margin-left: -90px;">
+    <div class="cutout-text">Hello, I'm</div>
+    <h1 class="name">NITHYASREE</h1>
+    <h1 class="typing-text" id="typing"></h1>
+  <p style="color:#444; font-size: 1.6rem;">Navigate through my portfolio sections to know more about me, my experience, skills, projects and achievements.</p>
+
+
+    <!-- Download Resume Button -->
+    <div style="margin-top: 20px;display: flex; justify-content: center;">
+      <a href="https://drive.google.com/uc?export=download&id=1eGxyCWiOO26gH-UIf9Bp15tTNBS9xvKB" download
+         class="w3-button w3-round"
+         style="background-color:#123C69; color:white; padding:12px 24px; font-weight:bold; text-decoration:none;">
+        <i class="fa fa-download" aria-hidden="true"></i> Download Resume
+      </a>
+    </div>
+  </div>
+
+  <!-- Right side: Image container -->
+  <div style="flex-shrink: 0; width: 250px;">
+    <img src="Images/images.jpg" alt="Nithyasree Photo" 
+         style="max-width: 250px; width: 100%; height: auto; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.15);" />
+  </div>
+</div>
+
+
+<div style="padding: 0 40px;">
+<div class="w3-row w3-center w3-dark-grey w3-padding-16 w3-section">
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">2+</span><br>
+        Experience
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">2</span><br>
+        Companies
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">10+</span><br>
+        Projects
+      </div>
+      <div class="w3-quarter w3-section">
+        <span class="w3-xlarge">2</span><br>
+        Professional Certificate
+      </div>
+    </div>
+
+</div>
+</div>
+
+<section id="experience" class="container">
+  <h2 class="section-title">Experience</h2>
+  
+<!-- Full-Time Experience -->
+<div class="experience-grid">
+  <!-- SMARTLINK -->
+  <div class="exp-card">
+    <h3>SMARTLINK Holdings</h3>
+    <p><strong>Role:</strong> Embedded Software Developer (ONU & AP)</p>
+    <p><strong>Location:</strong> Bangalore</p>
+    <p><strong>Duration:</strong> Oct 2024 – Present</p>
+    <a href="https://drive.google.com/file/d/1DFg1NWiXRPq2IMYzKfwUGcRfunQmJvaH" target="_blank" rel="noopener noreferrer">View Projects</a>
+  </div>
+
+  <!-- BOSCH -->
+  <div class="exp-card">
+    <h3>BOSCH Limited</h3>
+    <p><strong>Role:</strong> Graduate Apprentice (Power Platform Developer)</p>
+    <p><strong>Location:</strong> Chennai</p>
+    <p><strong>Duration:</strong> Oct 2023 – Oct 2024</p>
+    <a href="https://drive.google.com/file/d/1DyqOpkyHZzQPXxXQ5YYNH7bx3sj9Gg0B" target="_blank" rel="noopener noreferrer">View Projects</a>
+  </div>
+</div>
+
+
+  <!-- Internships -->
+  <h3 class="subsection-title">Internships</h3>
+  <div class="experience-grid">
+    <!-- Reliance Jio -->
+    <div class="exp-card">
+      <h4>Reliance - Jio</h4>
+      <p><strong>Category:</strong> Internship</p>
+      <p><strong>Domain:</strong> Generative AI</p>
+      <p><strong>Duration:</strong> 6 Months (12 April 2023 – 11 September 2023)</p>
+      <a href="https://drive.google.com/file/d/1J4YrBO_jwkf3mKctNp8dZm2fq7lFlmHO" target="_blank" rel="noopener noreferrer">View Certificate</a>
+    </div>
+
+    <!-- Accent Techno Soft -->
+    <div class="exp-card">
+      <h4>Accent Techno Soft</h4>
+      <p><strong>Category:</strong> Internship</p>
+      <p><strong>Domain:</strong> Data Science</p>
+      <p><strong>Duration:</strong> 90 Days (10 January 2023 – 04 April 2023)</p>
+      <a href="https://drive.google.com/file/d/1dVuWeEuwAGSAK6bn42OrjUIpAijtHffw" target="_blank" rel="noopener noreferrer">View Certificate</a>
+    </div>
+
+    <!-- AdroIT -->
+    <div class="exp-card">
+      <h4>AdroIT Technologies</h4>
+      <p><strong>Category:</strong> Internship</p>
+      <p><strong>Domain:</strong> Big Data</p>
+      <p><strong>Duration:</strong> 15 Days (24 May 2021 – 21 June 2021)</p>
+      <a href="https://drive.google.com/file/d/1LE_262cuHhGtlBa3RbGvkJfgP_mHYqGH" target="_blank" rel="noopener noreferrer">View Certificate</a>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="education" class="container">
+  <h2 class="section-title">Education</h2>
+  <div class="education-grid">
+    
+    <!-- B.E -->
+    <div class="edu-card">
+      <h3>Qualification: B.E - Computer Science and Engineering</h3>
+      <p><strong>Institution:</strong> Dr. Mahalingam College of Engineering and Technology</p>
+      <p><strong>Location:</strong> Pollachi, Coimbatore</p>
+      <p><strong>Year of Passing:</strong> 2019 - 2023</p>
+      <p><strong>CGPA:</strong> 9.2 / 10</p>
+    </div>
+
+    <!-- HSC -->
+    <div class="edu-card">
+      <h3>Qualification: HSC</h3>
+      <p><strong>Institution:</strong> Nirmala Matha Convent Matric Hr. Sec School</p>
+      <p><strong>Location:</strong> Coimbatore</p>
+      <p><strong>Year of Passing:</strong> 2019</p>
+      <p><strong>Percentage:</strong> 85.0%</p>
+    </div>
+
+    <!-- SSLC -->
+    <div class="edu-card">
+      <h3>Qualification: SSLC</h3>
+      <p><strong>Institution:</strong> Vidyaa Vikas Matric Hr. Sec School</p>
+      <p><strong>Location:</strong> Pudukkottai</p>
+      <p><strong>Year of Passing:</strong> 2017</p>
+      <p><strong>Percentage:</strong> 97.6%</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills" class="container" style="margin-top: 90px;">
+  <h2 class="section-title">Skills</h2>
+
+  <!-- Skill Categories -->
+  <div class="skills-grid">
+
+    <!-- Microsoft Power Platform -->
+    <div class="skill-card">
+      <h3>Microsoft Power Platform</h3>
+      <ul>
+        <li>Power Apps</li>
+        <li>Power Automate</li>
+        <li>Power Virtual Agents</li>
+        <li>Power BI</li>
+        <li>SharePoint</li>
+      </ul>
+    </div>
+
+    <!-- Data & Machine Learning -->
+    <div class="skill-card">
+      <h3>AI</h3>
+      <ul>
+        <li>Data Science</li>
+        <li>Data Visualization</li>
+        <li>Machine Learning</li>
+        <li>ChatGPT Models</li>
+        <li>Bot</li>
+      </ul>
+    </div>
+
+    <!-- Programming -->
+    <div class="skill-card">
+      <h3>Programming</h3>
+      <ul>
+        <li>Python</li>
+        <li>C</li>
+        <li>SQL</li>
+        <li>LUA</li>
+      </ul>
+    </div>
+
+    <!-- Networking -->
+   <div class="skill-card">
+  <h3>Networking</h3>
+  <ul>
+    <li>ONU Configurations</li>
+    <li>OpenWrt Firmware Development<li>
+    <li>Network Protocols</li>
+    <li>Linux</li>
+    <li>Web UI Integration for Network Configuration</li>
+    <li>IPtables</li>
+    <li>MIB Table management</li>
+  </ul>
+</div>
+
+    
+    <!-- Designing -->
+    <div class="skill-card">
+      <h3>Designing</h3>
+      <ul>
+        <li>UI/UX</li>
+      </ul>
+    </div>
+
+    <!-- Soft Skills -->
+    <div class="skill-card">
+      <h3>Soft Skills</h3>
+      <ul>
+        <li>Problem Solving</li>
+        <li>Teamwork</li>
+        <li>Time Management</li>
+        <li>Fast Learner</li>
+      </ul>
+    </div>
+    
+  </div>
+</section>
+
+
+<section id="projects" class="container" style="margin-top: 130px;">
+  <h2 class="section-title">Projects</h2>
+  <div class="education-grid">
+
+    <!-- Project 0 -->
+    <div class="edu-card">
+      <h3>Networking</h3>
+      <p><strong>Domain:</strong>ONU</p>
+      <p><strong>Duration:</strong>October 2024 - Present</p>
+      <p><strong>Role:</strong>Embedded Software Developer</p>
+      <p><strong>Description:</strong> Developing multiple features for the ONU device to enhance its functionality.</p>
+    </div>
+    
+    <!-- Project 1 -->
+<div class="edu-card">
+  <h3>Power BI</h3>
+  <p><strong>Domain:</strong> Power Platform</p>
+  <p><strong>Duration:</strong>October 2023 - October 2024</p>
+  <p><strong>Role:</strong> Developer</p>
+  <p><strong>Description:</strong> Created interactive dashboards and reports using Power BI to visualize data and support business decision-making.</p>
+</div>
+
+<!-- Project 2 -->
+<div class="edu-card">
+  <h3>Power Apps</h3>
+  <p><strong>Domain:</strong> Power Platform</p>
+  <p><strong>Duration:</strong>October 2023 - October 2024</p>
+  <p><strong>Role:</strong> Developer</p>
+  <p><strong>Description:</strong> Built custom Power Apps to automate workflows and improve operational efficiency within the organization.</p>
+</div>
+
+<!-- Project 3 -->
+<div class="edu-card">
+  <h3>Microsoft Copilot</h3>
+  <p><strong>Domain:</strong> Power Platform</p>
+  <p><strong>Duration:</strong>October 2023 - October 2024</p>
+  <p><strong>Role:</strong> Developer</p>
+  <p><strong>Description:</strong> Leveraged Copilot AI to automate workflows, generate insights, and enhance productivity within Power Platform solutions.</p>
+</div>
+
+<!-- Project 4 -->
+<div class="edu-card">
+  <h3>SharePoint</h3>
+  <p><strong>Domain:</strong> Power Platform</p>
+  <p><strong>Duration:</strong>October 2023 - October 2024</p>
+  <p><strong>Role:</strong> Developer</p>
+  <p><strong>Description:</strong> Developed and managed SharePoint sites and lists.</p>
+</div>
+
+<!-- Project 13 -->
+<div class="edu-card">
+  <h3>Power Automate</h3>
+  <p><strong>Domain:</strong> Power Platform</p>
+  <p><strong>Duration:</strong>October 2023 - October 2024</p>
+  <p><strong>Role:</strong> Developer</p>
+  <p><strong>Description:</strong> Developed an automated workflow to integrate with the applications.</p>
+</div>
+
+<!-- Project 5 -->
+<div class="edu-card">
+  <h3>Internet of Things</h3>
+  <p><strong>Domain:</strong> IoT</p>
+  <p><strong>Duration:</strong> 3 Months</p>
+  <p><strong>Role:</strong> Team Leader</p>
+  <p><strong>Description:</strong> Developed a system to measure PM2.5 value to alert the user and the sensor data is visualized using ThingSpeak cloud platform.</p>
+</div>
+
+<!-- Project 6 -->
+<div class="edu-card">
+  <h3>Artificial Intelligence</h3>
+  <p><strong>Domain:</strong> AI</p>
+  <p><strong>Duration:</strong> 3 Months</p>
+  <p><strong>Role:</strong> Team Leader</p>
+  <p><strong>Description:</strong> Developed a chatbot for banking application in IBM Watson Studio.</p>
+</div>
+
+<!-- Project 7 -->
+<div class="edu-card">
+  <h3>Machine Learning</h3>
+  <p><strong>Domain:</strong> ML</p>
+  <p><strong>Duration:</strong> 3 Months</p>
+  <p><strong>Role:</strong> Team Leader</p>
+  <p><strong>Description:</strong> Developed a model to classify the type of skin cancer (benign or malignant) which is trained using Harvard Dataverse dataset.</p>
+</div>
+
+<!-- Project 8 -->
+<div class="edu-card">
+  <h3>Data Science</h3>
+  <p><strong>Domain:</strong> Data Science</p>
+  <p><strong>Duration:</strong> 1 Month</p>
+  <p><strong>Role:</strong> Individual Project</p>
+  <p><strong>Description:</strong> Performed data collection and exploratory data analysis (EDA) using SQL and visualization tools. Conducted data analysis and built classification models using Python.</p>
+</div>
+
+<!-- Project 9 -->
+<div class="edu-card">
+  <h3>Project Management</h3>
+  <p><strong>Domain:</strong> Project Management</p>
+  <p><strong>Duration:</strong> 1 Month</p>
+  <p><strong>Role:</strong> Individual Project</p>
+  <p><strong>Description:</strong> Developed a project plan, charter, presentation, report and a real-time project “Sauce-Spoon-Test-Launch-Findings”.</p>
+</div>
+
+<!-- Project 10 -->
+<div class="edu-card">
+  <h3>Mobile App</h3>
+  <p><strong>Domain:</strong> Mobile Application</p>
+  <p><strong>Duration:</strong> 3 Months</p>
+  <p><strong>Role:</strong> Team Leader</p>
+  <p><strong>Description:</strong> Developed an application for a school to manage all activities.</p>
+</div>
+
+<!-- Project 11 -->
+<div class="edu-card">
+  <h3>Web App</h3>
+  <p><strong>Domain:</strong> Web Application</p>
+  <p><strong>Duration:</strong> 3 Months</p>
+  <p><strong>Role:</strong>Team Leader</p>
+  <p><strong>Description:</strong> Developed an application for a book store to manage all activities.</p>
+</div>
+
+<!-- Project 12 -->
+<div class="edu-card">
+  <h3>UI/UX</h3>
+  <p><strong>Domain:</strong> UI/UX</p>
+  <p><strong>Duration:</strong> 2 Months</p>
+  <p><strong>Role:</strong>Team Leader</p>
+  <p><strong>Description:</strong> Developed a responsive and intuitive user interface for a photography website using HTML, CSS, and JavaScript.</p>
+</div>
+
+
+
+
+    
+  </div>
+</section>
+
+
+  
+  <div class="container" id="Achievements" style="padding-bottom: 0;margin-top: 130px;">
+    <h2 class="section-title">Achievements</h2>
+
+    <!-- Filter Buttons -->
+    <div class="filter-btns">
+      <button class="active" data-filter="all" onclick="filterPortfolio(event)">All</button>
+      <button data-filter="professional certificate" onclick="filterPortfolio(event)">Professional certificate</button>
+      <button data-filter="conference" onclick="filterPortfolio(event)">Conference</button>
+      <button data-filter="hackathon" onclick="filterPortfolio(event)">Hackathon</button>
+      <button data-filter="virtual experience" onclick="filterPortfolio(event)">Virtual experience</button>
+      <button data-filter="badges" onclick="filterPortfolio(event)">Badges</button>
+      <button data-filter="webinars" onclick="filterPortfolio(event)">Webinars</button>
+      <button data-filter="workshop" onclick="filterPortfolio(event)">Workshop</button>
+      <button data-filter="courses" onclick="filterPortfolio(event)">Courses</button>
+      <button data-filter="guided project" onclick="filterPortfolio(event)">Guided Project</button>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid" id="portfolioGrid">
+      <!-- Portfolio items will be inserted here by JS -->
+    </div>
+  </div>
+  
+<div class="container" id="Personal Info" style="padding-bottom: 0;margin-top: 130px;">
+  <h2 class="section-title">Personal Info</h2>
+
+  <!-- Filter Buttons -->
+  <div class="filter-btns">
+    <button class="active" data-filter="all" onclick="filterPersonalInfo(event)">All</button>
+    <button data-filter="languages" onclick="filterPersonalInfo(event)">Languages</button>
+    <button data-filter="interests" onclick="filterPersonalInfo(event)">Interests</button>
+  </div>
+
+  <!-- Personal info grid -->
+  <div class="portfolio-grid" id="personalInfoGrid">
+    <!-- Items will be inserted by JS -->
+  </div>
+</div>
+
+
+
+
+<div class="container" id="contact" style="padding-bottom: 0;margin-top: 130px;">
+  <div class="contact-row" style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start;">
+    <!-- Contact info side -->
+    <div style="flex: 1 1 250px; min-width: 250px; line-height: 1.3; color: #123C69;">
+      <h2 style="margin-top: 0; margin-bottom: 12px;"><b>Lets Connect</b></h2>
+      <p>
+    I’m currently exploring new opportunities and eager to hear from you.  
+    Whether you have a question, a project idea, or just want to say hello,  
+    feel free to reach out — I’ll do my best to respond promptly!
+  </p>
+    </div>
+
+    <!-- Contact form side -->
+    <div class="contact-form" style="flex: 1 1 300px; min-width: 280px; background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 2px 6px rgb(0 0 0 / 0.1); margin-bottom: 0;">
+      <form action="https://formsubmit.co/88f0f00c7dd71e567851c088eb6c0b4f" method="POST" style="display: flex; flex-direction: column; gap: 8px;">
+        <!-- Inputs -->
+        <input type="text" name="name" placeholder="Name" required style="padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;" />
+        <input type="email" name="email" placeholder="Email" required style="padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;" />
+        <input type="text" name="subject" placeholder="Subject" required style="padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;" />
+        <textarea name="message" placeholder="Message" required rows="4" style="padding: 8px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;"></textarea>
+
+        <!-- Hidden fields -->
+        <input type="hidden" name="_captcha" value="false">
+        <!--<input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">-->
+        <input type="hidden" name="_subject" value="Portfolio contact">
+
+        <!-- Submit -->
+        <button type="submit" style="background-color: #123C69; color: white; border: none; padding: 10px; font-size: 14px; border-radius: 4px; cursor: pointer;">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+ <!-- Modal for project details -->
+  <div id="projectModal" class="modal" onclick="closeModal(event)">
+    <div class="modal-content" id="modalContent">
+      <span class="modal-close" onclick="closeModal(event)">&times;</span>
+      <!-- Modal content dynamically filled -->
+    </div>
+  </div>
+
+
+<script>
+
+  // Filter portfolio
+  function filterPortfolio(event) {
+    const filter = event.target.getAttribute("data-filter");
+    const buttons = document.querySelectorAll(".filter-btns button");
+    buttons.forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+
+    if (filter === "all") {
+      displayPortfolio(portfolioItems);
+    } else {
+      const filtered = portfolioItems.filter(item => item.category === filter);
+      displayPortfolio(filtered);
+    }
+  }
+
+
+  // Portfolio data
+  const portfolioItems = [
+    {
+      id: 1,
+      title: "IBM Data Science Professional Certificate",
+      category: "professional certificate",
+      image: "Images/IBM.jpg",
+      link: "https://drive.google.com/drive/folders/1LYmtkRmq5xz3ErDwK9d67Aew0ArvxeaE"
+    },
+    {
+      id: 2,
+      title: "Google Project Management Certificate",
+      category: "professional certificate",
+      image: "Images/google.jpg",
+      link: "https://drive.google.com/file/d/1o4ihWbrEQqMHAHIvS5_OYbK0QaPI8pvj"
+    },
+    {
+      id: 3,
+      title: "Natural Language Processing",
+      category: "guided project",
+      image: "Images/nlp.png",
+      link: "https://drive.google.com/file/d/1WQwU9UPGT7tCRRfbfrG3eWxkmaR6xwvh"
+    },
+    {
+      id: 4,
+      title: "Data Analytics and Visualization",
+      category: "virtual experience",
+      image: "Images/forage.jpg",
+      link: "https://drive.google.com/file/d/12sW-tbFF_kZI-faCvYnct6dowa0B5Ti9"
+    },
+    {
+      id: 5,
+      title: "Hackathon",
+      category: "hackathon",
+      image: "Images/hackathon.png",
+      link: "https://drive.google.com/file/d/10mHAbm8Nfen881iFOnE6cN5T1A73y3Qk"
+    },
+    {
+      id: 6,
+      title: "ICCIS",
+      category: "conference",
+      image: "Images/ICCIS.png",
+      link: "https://drive.google.com/file/d/1DArNAb3nVdzZ2VMt0C8uiB9HfWQhBHT2"
+    },
+    {
+      id: 7,
+      title: "ICCET",
+      category: "conference",
+      image: "Images/ICCET.png",
+      link: "https://drive.google.com/file/d/1yIdRAgknrRfckyDoJTQUYCZu3eAcX3Ej"
+    },
+    {
+      id: 8,
+      title: "Microsoft Copilot",
+      category: "badges",
+      image: "Images/copilot.png",
+      link: "https://drive.google.com/drive/folders/1UvcN7WSVUZfs3e-sG6XH998Al3Pwv3m9"
+    },
+    {
+      id: 9,
+      title: "Regression Analysis",
+      category: "webinars",
+      image: "Images/RA.png",
+      link: "https://drive.google.com/file/d/1yfKhxBzJv3lstI6PnuGwTEXR8uFA4zIz"
+    },
+    {
+      id: 10,
+      title: "Data Analysis",
+      category: "webinars",
+      image: "Images/DA.png",
+      link: "https://drive.google.com/file/d/1CU-s8lHsXwjPftsU-wTuFyKp8XHl6OOS"
+    },
+    {
+      id: 11,
+      title: "Cloud Computing",
+      category: "webinars",
+      image: "Images/CC.png",
+      link: "https://drive.google.com/file/d/1Rlu56OUVteNzBvXqCpvfTG-YzA0l4XsI"
+    },
+    {
+      id: 12,
+      title: "Artificial Intelligence",
+      category: "webinars",
+      image: "Images/AI.png",
+      link: "https://drive.google.com/file/d/1A_EKfDyJ8-GONbD5nvyow0vkkW_UYIY9"
+    },
+    {
+      id: 13,
+      title: "Power BI",
+      category: "workshop",
+      image: "Images/BI.png",
+      link: "https://drive.google.com/file/d/1aTZPoxQ3c_5ZDembW5dL3MQqPhaopwet"
+    },
+    {
+      id: 14,
+      title: "Practical Teaching",
+      category: "courses",
+      image: "Images/PT.png",
+      link: "https://drive.google.com/file/d/1JreGRoRxLHhSkIz9h0aQ5aXB6ppcuyA1"
+    },
+    {
+      id: 15,
+      title: "Machine Learning",
+      category: "courses",
+      image: "Images/ML.png",
+      link: "https://drive.google.com/file/d/1-yX53ZSd-_X2JO2OstAM6Nkd-iauOe7y"
+    },
+    {
+      id: 16,
+      title: "Machine Learning with Python & R",
+      category: "courses",
+      image: "Images/MLR.png",
+      link: "https://drive.google.com/file/d/12ToPiY4t40Wp7SZ0uFwX0KbFmiFUOCHt"
+    },
+    {
+      id: 17,
+      title: "Artificial Neural Networks",
+      category: "courses",
+      image: "Images/ANN.png",
+      link: "https://drive.google.com/file/d/1iv1UCUc2hmmoq4Bg94nUNnJT-kT_Dzbn"
+    },
+    {
+      id: 18,
+      title: "Data Science for Engineers",
+      category: "courses",
+      image: "Images/DS.png",
+      link: "https://drive.google.com/file/d/1betG1VNP6O_zDd3VziYdJCe7l0AHDmPq"
+    },
+    {
+      id: 19,
+      title: "Data Analysis with Python",
+      category: "courses",
+      image: "Images/DAP.png",
+      link: "https://drive.google.com/file/d/1YpxoZL85fHoYI1KtApuHbxsKNR0OHI2r"
+    },
+    {
+      id: 20,
+      title: "Data Analysis",
+      category: "courses",
+      image: "Images/DAF.png",
+      link: "https://drive.google.com/file/d/11AEK_Z4rUNEbWtjgmKnkHkk-jgeRb3HZ"
+    },
+    {
+      id: 21,
+      title: "AWS - ML",
+      category: "courses",
+      image: "Images/AWS.png",
+      link: "https://drive.google.com/file/d/1rO-YAH94-HAfj3ChZ-_-udTcIbUKj3fH"
+    },
+    {
+      id: 22,
+      title: "Arduino",
+      category: "courses",
+      image: "Images/Arduino.png",
+      link: "https://drive.google.com/file/d/1VG7bAdRnYzScx1_caqhQjxT9mp2z0XPQ"
+    },
+    {
+      id: 23,
+      title: "Android App development",
+      category: "courses",
+      image: "Images/Android.png",
+      link: "https://drive.google.com/file/d/13bMAW57YpYBeh2jTKiY906iPF-L50wb0"
+    }
+  ];
+
+function displayPortfolio(items) {
+  const grid = document.getElementById("portfolioGrid");
+  grid.innerHTML = ""; // Ensure grid is cleared first
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "portfolio-item";
+    div.dataset.category = item.category;
+    div.onclick = () => openModal(item.id);
+    div.innerHTML = `
+      <div class="portfolio-info"><h3>${item.title}</h3></div>
+      <img src="${item.image}" alt="${item.title}" />
+    `;
+    grid.appendChild(div);
+  });
+}
+
+
+
+  // Filter portfolio
+  function filterPortfolio(event) {
+    const filter = event.target.getAttribute("data-filter");
+    const buttons = document.querySelectorAll(".filter-btns button");
+    buttons.forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+
+    if (filter === "all") {
+      displayPortfolio(portfolioItems);
+    } else {
+      const filtered = portfolioItems.filter(item => item.category === filter);
+      displayPortfolio(filtered);
+    }
+  }
+
+
+
+  // Modal functions
+ function openModal(id) {
+  const project = portfolioItems.find(p => p.id === id);
+  const modal = document.getElementById("projectModal");
+  const modalContent = document.getElementById("modalContent");
+
+  modalContent.innerHTML = `
+  <span class="modal-close" onclick="closeModal(event)">&times;</span>
+  <h2 style="max-width: 500px; margin: 0 auto 16px auto; text-align: center;">${project.title}</h2>
+  
+  <img src="${project.image}" alt="${project.title}" style="display: block; margin: 0 auto 16px auto;" />
+  
+  <a href="${project.link}" target="_blank" class="project-link">View Certificate</a>
+`;
+
+  modal.style.display = "flex";
+}
+
+
+  function closeModal(event) {
+    if (
+      event.target.classList.contains("modal") ||
+      event.target.classList.contains("modal-close")
+    ) {
+      document.getElementById("projectModal").style.display = "none";
+    }
+  }
+
+
+  // Scroll smooth to sections
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+  }
+
+  // Contact form submit
+  function submitForm(event) {
+    event.preventDefault();
+    alert("Thank you for contacting me! I will get back to you soon.");
+    document.getElementById("contactForm").reset();
+  }
+
+  // Initialize portfolio on page load
+  window.onload = () => {
+    displayPortfolio(portfolioItems);
+  };
+  // Toggle dropdown visibility
+function toggleDropdown(event) {
+  event.preventDefault(); // Prevent default link jump
+  document.getElementById("portfolioDropdown").classList.toggle("show");
+}
+
+// Filter portfolio from dropdown and close dropdown
+function filterFromDropdown(event, filter) {
+  event.preventDefault();
+  filterPortfolio({ target: { getAttribute: () => filter } });
+  // Close dropdown
+  document.getElementById("portfolioDropdown").classList.remove("show");
+  // Scroll to portfolio section
+  scrollToSection('portfolio');
+}
+
+// Close dropdown if clicked outside
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    const dropdown = document.getElementById("portfolioDropdown");
+    if (dropdown.classList.contains('show')) {
+      dropdown.classList.remove('show');
+    }
+  }
+}
+
+  // Sample data for personal info
+  const personalInfoItems = [
+    {
+      id: 1,
+      category: "languages",
+      title: "English",
+      description: "Fluent in reading, writing, and speaking English.",
+    },
+    {
+      id: 2,
+      category: "languages",
+      title: "Tamil",
+      description: "Native language, Fluent in reading, writing, and speaking.",
+    },
+    {
+      id: 4,
+      category: "interests",
+      title: "Reading",
+      description: "Enjoy reading novels, tech blogs, and articles.",
+    },
+    {
+      id: 5,
+      category: "interests",
+      title: "Traveling",
+      description: "Love exploring new places and cultures.",
+    },
+    {
+      id: 6,
+      category: "interests",
+      title: "UI/UX Desigining",
+      description: "Passionate about developing UI designs.",
+    },
+    {
+      id: 7,
+      category: "interests",
+      title: "Gardening",
+      description: "Passionate about growing plants and creating green spaces.",
+    },
+    {
+      id: 8,
+      category: "interests",
+      title: "Listening Music",
+      description: "Enjoy exploring diverse music genres for relaxation and inspiration.",
+    },
+  ];
+
+  // Function to render personal info items
+  function renderPersonalInfo(filter = "all") {
+    const container = document.getElementById("personalInfoGrid");
+    container.innerHTML = "";
+
+    const filteredItems = filter === "all"
+      ? personalInfoItems
+      : personalInfoItems.filter(item => item.category === filter);
+
+    filteredItems.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "portfolio-item";
+      div.innerHTML = `
+        <div class="portfolio-info">
+          <h3>${item.title}</h3>
+          <p>${item.description}</p>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  // Filter button handler for personal info
+  function filterPersonalInfo(event) {
+    // Remove active from all buttons
+    const buttons = event.target.parentNode.querySelectorAll("button");
+    buttons.forEach(btn => btn.classList.remove("active"));
+
+    // Add active to clicked button
+    event.target.classList.add("active");
+
+    // Filter items
+    const filter = event.target.getAttribute("data-filter");
+    renderPersonalInfo(filter);
+  }
+
+  // Initial render on page load
+  document.addEventListener("DOMContentLoaded", () => {
+    renderPersonalInfo();
+  });
+    const texts = [
+      "SOFTWARE DEVELOPER",
+      "POWER BI DEVELOPER",
+      "UI/UX DESIGNER",
+    ];
+    let index = 0;
+    let charIndex = 0;
+    const typingElement = document.getElementById("typing");
+
+    function type() {
+      if (charIndex < texts[index].length) {
+        typingElement.textContent += texts[index].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 100);
+      } else {
+        setTimeout(erase, 2000);
+      }
+    }
+
+    function erase() {
+      if (charIndex > 0) {
+        typingElement.textContent = texts[index].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 50);
+      } else {
+        index = (index + 1) % texts.length;
+        setTimeout(type, 500);
+      }
+    }
+
+    // Start typing
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(type, 1000);
+    });
+
+  function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId.toLowerCase().replace(/\s+/g, ''));
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  function toggleDropdown(event) {
+    event.preventDefault();
+    // Close all open dropdowns
+    const allDropdowns = document.querySelectorAll(".dropdown-content");
+    allDropdowns.forEach(drop => drop.classList.remove("show"));
+
+    // Toggle current dropdown
+    const currentDropdown = event.target.nextElementSibling;
+    if (currentDropdown && currentDropdown.classList.contains("dropdown-content")) {
+      currentDropdown.classList.toggle("show");
+    }
+
+    // Close dropdown if clicked outside
+    document.addEventListener("click", function (e) {
+      if (!event.target.closest('.dropdown')) {
+        allDropdowns.forEach(drop => drop.classList.remove("show"));
+      }
+    }, { once: true });
+  }
+
+  function filterFromDropdown(event, category) {
+    event.preventDefault();
+    document.querySelectorAll('.filter-btns button').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.getAttribute('data-filter') === category.toLowerCase()) {
+        btn.classList.add('active');
+      }
+    });
+    filterPortfolioByCategory(category.toLowerCase());
+  }
+
+  function filterPortfolioByCategory(category) {
+    const items = document.querySelectorAll('.portfolio-item');
+    items.forEach(item => {
+      const itemCategory = item.getAttribute('data-category');
+      if (category === 'all' || itemCategory === category) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  function filterPortfolio(event) {
+    const filter = event.target.getAttribute('data-filter');
+    document.querySelectorAll('.filter-btns button').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    filterPortfolioByCategory(filter);
+  }
+  function scrollToSection(id) {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  function toggleDropdown(event) {
+    event.preventDefault();
+    const dropdown = event.target.nextElementSibling;
+    dropdown.classList.toggle('show');
+  }
+
+  // Optional: close dropdown when clicking outside
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      document.querySelectorAll('.dropdown-content').forEach(dc => dc.classList.remove('show'));
+    }
+  };
+  function navigateToAchievementSection(sectionId) {
+    // Show the Achievements tab (adjust tab id/class as per your setup)
+    const achievementsTab = document.querySelector('[data-bs-target="#portfolio"]');
+    if (achievementsTab) {
+      achievementsTab.click(); // Activates the tab
+    }
+
+    // Delay scrolling to allow tab to render content
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 300); // Adjust delay if needed
+  }
+</script>
+<script>
+  const originalFormHTML = document.querySelector("form").innerHTML;
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // prevent redirect
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        form.innerHTML = "<p style='color: green;'>✅ Message sent successfully!</p>";
+
+        // Show the form again after 1 seconds
+        setTimeout(() => {
+          form.innerHTML = originalFormHTML;
+        }, 1000);
+      } else {
+        form.innerHTML = "<p style='color: red;'>❌ Oops! There was a problem.</p>";
+      }
+    })
+    .catch(error => {
+      form.innerHTML = "<p style='color: red;'>❌ Error: " + error.message + "</p>";
+    });
+  });
+</script>
+
+
+
+
+</body>
+</html>
+
