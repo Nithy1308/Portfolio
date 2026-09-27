@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nithy1308.github.io/Portfolio/sitemap.xml
