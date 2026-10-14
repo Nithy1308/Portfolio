@@ -12,26 +12,30 @@ window.PORTFOLIO = (function () {
     firstName: "Nithyasree",
     fullName: "Nithyasree K",
     initials: "NK",
-    headline: "Data Analyst",
+    headline: "Power BI Developer | BI Reporting Analyst",
     // Rotating roles for the hero typewriter effect
     roles: [
-      "Data Analyst",
       "Power BI Developer",
+      "BI Reporting Analyst",
+      "Power BI & DAX Developer",
       "SQL & Python Analyst",
-      "Dashboard Storyteller",
-      "Data Visualisation Specialist"
+      "Dashboard Storyteller"
     ],
     tagline: "I turn raw, messy data into dashboards and decisions people actually act on.",
-    availability: "Open to Data Analyst roles",
+    availability: "Open to Power BI Developer / BI Reporting Analyst roles",
     location: "Bangalore, India",
+    preferredLocations: "Bangalore, Coimbatore, Chennai, Hyderabad, Kochi",
+    workMode: "Hybrid, Remote, Flexible",
     // Set this to your address and the email chips/buttons appear automatically.
     email: "",
     summary:
-      "I'm a data analyst with 2+ years of experience across analytics and low-code engineering. " +
-      "At Bosch I built the Power BI reporting layer that teams used to run their day — pipelines, " +
-      "data models, DAX measures and dashboards — and today at Smartlink I work on device data and " +
-      "embedded systems. I like the whole journey: collecting and cleaning the data, exploring it with " +
-      "SQL and Python, modelling it properly, then designing a visual story that makes the insight " +
+      "I'm a Power BI Developer with 3 years of professional experience across BI reporting, " +
+      "dashboard development and embedded software development. At Bosch I built and deployed 7 " +
+      "Power BI dashboards, automated the Daily Production Report using Power BI and SQL, and " +
+      "reduced reporting time by 60%. Today at Digisol I work on embedded firmware for ONU devices " +
+      "and access points — OpenWrt, Lua and full-stack frontend/backend development. I like the " +
+      "whole journey: collecting and cleaning the data, exploring it with SQL and Python, modelling " +
+      "it properly with star-schema designs, then designing a visual story that makes the insight " +
       "obvious in five seconds.",
     links: {
       linkedin: "https://www.linkedin.com/in/nithyasree-k-a199021a9",
@@ -47,9 +51,9 @@ window.PORTFOLIO = (function () {
   /* 2. HERO METRICS (animated counters)                                     */
   /* ---------------------------------------------------------------------- */
   const stats = [
-    { value: 2, suffix: "+", label: "Years experience", icon: "clock" },
+    { value: 3, suffix: "", label: "Years experience", icon: "clock" },
     { value: 2, suffix: "", label: "Companies", icon: "building" },
-    { value: 14, suffix: "", label: "Projects delivered", icon: "layers" },
+    { value: 16, suffix: "", label: "Projects delivered", icon: "layers" },
     { value: 23, suffix: "", label: "Certifications & awards", icon: "award" }
   ];
 
@@ -57,10 +61,10 @@ window.PORTFOLIO = (function () {
   /* 3. TOOL MARQUEE                                                         */
   /* ---------------------------------------------------------------------- */
   const marquee = [
-    "Power BI", "SQL", "Python", "Data Visualisation", "Exploratory Data Analysis",
-    "Machine Learning", "Power Apps", "Power Automate", "Power Virtual Agents",
-    "SharePoint", "Microsoft Copilot", "Generative AI", "Big Data", "C", "LUA",
-    "Linux", "Network Protocols", "OpenWrt", "IPtables", "MIB Tables", "Problem Solving"
+    "Power BI", "DAX", "Power Query/M", "SQL", "Python", "Pandas", "NumPy",
+    "Star Schema Data Modelling", "KPI Dashboards", "ETL", "Excel", "Power Apps",
+    "Power Automate", "Power Pages", "SharePoint", "Microsoft Copilot", "MySQL",
+    "PostgreSQL", "C", "Lua", "OpenWrt", "Linux", "Git", "Problem Solving"
   ];
 
   /* ---------------------------------------------------------------------- */
@@ -68,24 +72,24 @@ window.PORTFOLIO = (function () {
   /* ---------------------------------------------------------------------- */
   const highlights = [
     {
-      title: "Analytics that answers questions",
-      icon: "chart",
-      text: "Requirement first, chart second. I start from the business question, define the metric, then design the model so the answer is unambiguous."
-    },
-    {
       title: "Power BI end to end",
       icon: "dashboard",
-      text: "Power Query ETL, star-schema data models, DAX measures, drill-through and row-level security — published and refreshed on a schedule."
+      text: "Built and deployed 7 production dashboards with Power Query ETL, star-schema data models, DAX measures, drill-through and scheduled refresh."
+    },
+    {
+      title: "60% faster reporting",
+      icon: "chart",
+      text: "Automated the Daily Production Report using Power BI and SQL pipelines, eliminating manual compilation and reducing reporting time by 60%."
     },
     {
       title: "SQL & Python fluency",
       icon: "code",
-      text: "Joins, window functions and CTEs in SQL; Pandas, NumPy, Matplotlib and scikit-learn in Python for EDA and models."
+      text: "Joins, window functions and CTEs in SQL; Pandas, NumPy and statistical analysis in Python for EDA, cleaning and validation."
     },
     {
-      title: "Data storytelling",
+      title: "Full-stack embedded background",
       icon: "sparkle",
-      text: "Layout, colour and hierarchy used with intent, so an executive sees the headline number before they read a single label."
+      text: "From C/Lua daemons on OpenWrt to LuCI web UI — a debugging discipline that makes me methodical about data quality too."
     }
   ];
 
@@ -94,41 +98,45 @@ window.PORTFOLIO = (function () {
   /* ---------------------------------------------------------------------- */
   const experience = [
     {
-      company: "Smartlink Holdings",
-      role: "Embedded Software Developer (ONU & AP)",
+      company: "Digisol",
+      role: "Embedded Developer",
       location: "Bangalore, India",
       period: "Oct 2024 — Present",
       current: true,
       type: "Full-time",
       summary:
-        "Feature development and diagnostics for ONU / access-point devices — the same discipline of tracing signals, reading logs and proving root cause that data work needs.",
+        "Embedded firmware development for ONU devices and access points on the OpenWrt platform — full-stack frontend and backend work with a strong debugging discipline.",
       points: [
-        "Develop and ship multiple ONU features that extend device functionality for operators.",
-        "Debug live device behaviour through log and packet analysis on Linux, isolating faults fast.",
-        "Work across OpenWrt firmware, web-UI configuration flows, IPtables and MIB table management.",
-        "Document findings so hardware, firmware and QA teams share one version of the truth."
+        "Develop and maintain embedded firmware for Optical Network Units (ONU) and access points using structured debugging and code optimization.",
+        "Worked on ONU feature development including provisioning, OMCI management and PON interface configurations for GPON/EPON deployments.",
+        "On Access Points: Learned Lua scripting and developed both frontend (LuCI/web UI) and backend components for Wi-Fi management and configuration.",
+        "Currently working on OpenWrt platform with full-stack development across frontend (LuCI interface and custom web modules) and backend (C/Lua daemons, UCI configuration, netifd and procd).",
+        "Analyze device-performance and network-diagnostic logs to identify recurring fault patterns using root-cause analysis and data-driven troubleshooting."
       ],
-      stack: ["Linux", "OpenWrt", "LUA", "C", "Networking", "IPtables", "MIB"],
+      stack: ["OpenWrt", "Lua", "C", "Linux", "LuCI", "UCI", "netifd", "procd", "GPON/EPON"],
       link: "https://drive.google.com/file/d/1DFg1NWiXRPq2IMYzKfwUGcRfunQmJvaH",
       linkLabel: "View work samples"
     },
     {
-      company: "BOSCH Limited",
-      role: "Graduate Apprentice — Power Platform Developer",
+      company: "Bosch Power Tools",
+      role: "Power BI Developer / BI Reporting Analyst",
       location: "Chennai, India",
       period: "Oct 2023 — Oct 2024",
       current: false,
-      type: "Apprenticeship",
+      type: "Full-time",
       summary:
-        "Built the reporting and automation layer for internal operations: dashboards, data models and workflows that replaced manual spreadsheet reporting.",
+        "Built and deployed 7 production Power BI dashboards, automated the Daily Production Report and reduced reporting time by 60% for cross-functional stakeholders.",
       points: [
-        "Created interactive Power BI dashboards and reports that visualised operational data for business decisions.",
-        "Modelled and prepared source data so KPIs stayed consistent across every report and refresh cycle.",
-        "Automated recurring reporting and approval workflows with Power Automate, removing manual rework.",
-        "Built custom Power Apps and SharePoint sites/lists to capture clean data at source.",
-        "Applied Microsoft Copilot to generate insights and speed up internal solution delivery."
+        "Developed and deployed 7 production Power BI dashboards covering production, logistics, inventory, HR and tool-life monitoring for cross-functional stakeholders.",
+        "Automated the Daily Production Report using Power BI and SQL pipelines which eliminated manual compilation and reduced reporting time by 60%.",
+        "Built Spares Stock Accuracy and Tool Life Monitoring dashboards using advanced DAX measures to analyze discrepancies and support replacement planning.",
+        "Designed star-schema data models with fact and dimension tables and transformed raw data using Power Query/M for clean scalable BI solutions.",
+        "Optimized DAX measures and Power BI report performance using query folding, aggregation tables and incremental refresh strategies.",
+        "Collaborated with 5+ department heads to translate business requirements into KPI frameworks and interactive Power BI dashboards.",
+        "Built 4 Power Apps and automated multi-step approval workflows with Power Automate and deployed 2 Power Pages portals and 1 Power Virtual Agents chatbot.",
+        "Conducted data cleaning, EDA and statistical analysis in Excel and Python (Pandas, NumPy) to validate dashboard accuracy."
       ],
-      stack: ["Power BI", "DAX", "Power Query", "Power Apps", "Power Automate", "SharePoint", "Copilot"],
+      stack: ["Power BI", "DAX", "Power Query", "SQL", "Python", "Power Apps", "Power Automate", "SharePoint", "Excel"],
       link: "https://drive.google.com/file/d/1DyqOpkyHZzQPXxXQ5YYNH7bx3sj9Gg0B",
       linkLabel: "View work samples"
     }
@@ -166,44 +174,39 @@ window.PORTFOLIO = (function () {
   /* ---------------------------------------------------------------------- */
   // `level` drives the animated proficiency bars (edit freely, 0-100).
   const coreSkills = [
-    { name: "Power BI & DAX", level: 92, note: "Data models, measures, drill-through, refresh" },
-    { name: "SQL", level: 88, note: "Joins, CTEs, window functions, reporting queries" },
-    { name: "Data Visualisation", level: 90, note: "Chart choice, layout, colour, storytelling" },
-    { name: "Python for Data", level: 84, note: "Pandas, NumPy, Matplotlib, scikit-learn" },
-    { name: "Microsoft Power Platform", level: 88, note: "Apps, Automate, Virtual Agents, SharePoint" },
-    { name: "Machine Learning", level: 78, note: "EDA, feature prep, classification models" }
+    { name: "Power BI & DAX", level: 92, note: "Star schema models, measures, drill-through, query folding, refresh" },
+    { name: "SQL", level: 88, note: "Joins, CTEs, window functions, reporting queries, PostgreSQL, MySQL" },
+    { name: "Power Query/M", level: 90, note: "ETL pipelines, data transformation, incremental refresh" },
+    { name: "Python for Data", level: 84, note: "Pandas, NumPy, EDA, data cleaning, statistical analysis" },
+    { name: "Microsoft Power Platform", level: 88, note: "Apps, Automate, Pages, Virtual Agents, SharePoint, Copilot" },
+    { name: "Excel", level: 90, note: "VLOOKUP, Pivot Tables, Power Pivot, formulas and functions" }
   ];
 
   const skillGroups = [
     {
+      name: "BI & Reporting",
+      icon: "dashboard",
+      items: ["Power BI Desktop", "Power BI Service", "DAX", "Power Query/M", "Star Schema Data Modelling", "KPI Dashboards", "ETL", "Report Design", "Paginated Reports"]
+    },
+    {
       name: "Data & Analytics",
       icon: "chart",
-      items: ["SQL", "Power BI", "Data Visualisation", "Exploratory Data Analysis", "Data Collection", "Data Cleaning", "Dashboard & Report Design", "KPI Definition", "Storytelling with Data"]
+      items: ["SQL", "Python", "Pandas", "NumPy", "EDA", "Data Cleaning", "Data Transformation", "Statistical Analysis", "Excel (VLOOKUP, Pivot Tables, Power Pivot)"]
     },
     {
-      name: "Programming & Tools",
-      icon: "code",
-      items: ["Python", "SQL", "C", "LUA", "Linux"]
+      name: "Automation & Power Platform",
+      icon: "bolt",
+      items: ["Power Apps", "Power Automate", "Power Pages", "SharePoint", "Microsoft Copilot"]
     },
     {
-      name: "AI & Machine Learning",
+      name: "Databases",
       icon: "chip",
-      items: ["Machine Learning", "Data Science", "Classification Models", "Natural Language Processing", "Generative AI", "ChatGPT Models", "Bot Development"]
+      items: ["MySQL", "PostgreSQL", "SQL Server"]
     },
     {
-      name: "Microsoft Power Platform",
-      icon: "dashboard",
-      items: ["Power Apps", "Power Automate", "Power Virtual Agents", "Power BI", "SharePoint", "Microsoft Copilot"]
-    },
-    {
-      name: "Networking & Embedded",
+      name: "Engineering & Embedded",
       icon: "network",
-      items: ["ONU Configurations", "OpenWrt Firmware Development", "Network Protocols", "Web UI for Network Config", "IPtables", "MIB Table Management"]
-    },
-    {
-      name: "Soft Skills",
-      icon: "users",
-      items: ["Problem Solving", "Teamwork", "Time Management", "Fast Learner"]
+      items: ["C", "Lua", "OpenWrt", "Linux", "Networking", "Git"]
     }
   ];
 
@@ -287,35 +290,39 @@ window.PORTFOLIO = (function () {
       link: ""
     },
     {
-      title: "Air-quality monitoring & alerting",
+      title: "IoT-Based Air Pollution Monitoring for COPD Patients",
       category: "other",
       group: "Internet of Things",
-      period: "3 months",
+      period: "Published at ICCET 2023",
       role: "Team leader",
       domain: "IoT",
       icon: "waves",
       summary:
-        "A system that measures PM2.5 levels, alerts users when air quality degrades, and streams readings to the ThingSpeak cloud.",
+        "A PM2.5 sensor-data pipeline with real-time trend visualization — published research at ICCET 2023.",
       detail:
-        "Sensor readings were captured and pushed to ThingSpeak, where the data was visualised over time so patterns " +
-        "and threshold breaches became visible rather than buried in raw logs.",
-      tags: ["IoT", "ThingSpeak", "Sensors", "Data Visualisation"],
+        "Built a Python-based PM2.5 sensor-data pipeline that streamed readings to ThingSpeak cloud and " +
+        "visualised air-quality trends in real time so threshold breaches became visible rather than buried " +
+        "in raw logs. The research was published at ICCET 2023.",
+      tags: ["IoT", "Python", "ThingSpeak", "PM2.5 Sensors", "ICCET 2023"],
       link: ""
     },
     {
-      title: "Device data & ONU feature development",
+      title: "ONU & Access Point firmware development",
       category: "other",
       group: "Networking",
       period: "Oct 2024 — Present",
-      role: "Embedded software developer",
-      domain: "ONU",
+      role: "Embedded developer",
+      domain: "ONU / OpenWrt",
       icon: "network",
       summary:
-        "Developing multiple features for ONU devices, working close to the hardware where telemetry and logs are the only evidence.",
+        "Full-stack OpenWrt development for ONU devices and access points — C/Lua daemons on the backend and LuCI web UI on the frontend.",
       detail:
-        "Feature work on ONU / access-point platforms: implementing functionality, tracing behaviour through device " +
-        "logs and packet captures on Linux, and managing configuration through IPtables and MIB tables.",
-      tags: ["Linux", "OpenWrt", "IPtables", "MIB", "Networking"],
+        "Feature development on ONU / access-point platforms: provisioning, OMCI management and PON interface " +
+        "configurations for GPON/EPON deployments. On access points I learned Lua and built both frontend " +
+        "(LuCI web UI, custom web modules) and backend (C/Lua daemons, UCI configuration, netifd, procd) " +
+        "components. I also analyze device-performance and network-diagnostic logs to identify recurring fault " +
+        "patterns using root-cause analysis.",
+      tags: ["OpenWrt", "Lua", "C", "LuCI", "UCI", "netifd", "procd", "GPON/EPON"],
       link: ""
     },
     {
